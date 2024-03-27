@@ -382,7 +382,7 @@ LOOP
             -- Get everything from the current child minimum up to the multiples of the given interval
             EXECUTE format('WITH move_data AS (
                                     DELETE FROM %I.%I WHERE %s <= %L RETURNING %s )
-                                  INSERT INTO %I.%I (%5$s) SELECT %5$s FROM move_data'
+                                  INSERT INTO %I.%I (%5$s) SELECT %5$s FROM move_data on conflict do nothing'
                 , v_parent_schema
                 , v_child_table
                 , v_partition_expression
@@ -434,7 +434,7 @@ LOOP
             -- Get everything from the current child minimum up to the multiples of the given interval
             EXECUTE format('WITH move_data AS (
                                     DELETE FROM %I.%I WHERE %s <= %L RETURNING %s)
-                                  INSERT INTO %I.%I (%5$s) SELECT %5$s FROM move_data'
+                                  INSERT INTO %I.%I (%5$s) SELECT %5$s FROM move_data on conflict do nothing'
                 , v_parent_schema
                 , v_child_table
                 , v_partition_expression
